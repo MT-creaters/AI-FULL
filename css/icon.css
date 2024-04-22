@@ -1,0 +1,41 @@
+/* ホームアイコン */
+body {
+    font-family: "Yusei Magic", sans-serif;
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+  }
+.animsition{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    height: 500px;
+  }
+/* アイコン */
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    animation:katakata 6s infinite ease-in-out alternate;
+  }
+  img {
+    width:260px;
+    height:188px;
+    background: #ccc;
+  }
+  @keyframes katakata {
+    0% {transform:translate(0, 0) rotate(0deg);}
+    21% {transform:translate(0, 0) rotate(0deg);}
+  
+    22% {transform:translate(0, 0) rotate(-3deg);}
+    23% {transform:translate(0, 0) rotate(0deg);}
+    24% {transform:translate(0, 0) rotate(3deg);}
+  
+    25% {transform:translate(0, 0) rotate(-3deg);}
+    26% {transform:translate(0, 0) rotate(0deg);}
+    27% {transform:translate(0, 0) rotate(3deg);}
+  
+    28% {transform:translate(0, 0) rotate(0deg);}
+    100% {transform:translate(0, 0) rotate(0deg);}
+  }

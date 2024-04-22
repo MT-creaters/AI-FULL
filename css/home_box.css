@@ -1,0 +1,83 @@
+/* https://webrent.xsrv.jp/css-animation-background/ */
+
+/* .box {
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    position:relative;
+} */
+.box div {
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    top: 8%;
+    left: 8%;
+    animation: animate 5s linear infinite;
+    background: transparent;
+    border:solid 3px rgba(255,255,255,0.8);
+    z-index:999999;
+}
+.box div:nth-child(1) {
+    top: 18%;
+    left: 18%;
+    animation: animate 15s linear infinite;
+}
+.box div:nth-child(2) {
+    top: 27%;
+    left: 87%;
+    animation: animate 10s linear infinite;
+}
+.box div:nth-child(3) {
+    top: 80%;
+    left: 90%;
+    animation: animate 5s linear infinite;
+}
+.box div:nth-child(4) {
+    top: 60%;
+    left: 70%;
+    animation: animate 9s linear infinite;
+}
+.box div:nth-child(5) {
+    top: 88%;
+    left: 12%;
+    animation: animate 9s linear infinite;
+}
+.box div:nth-child(6) {
+    top: 70%;
+    left: 33%;
+    animation: animate 8s linear infinite;
+}
+.box div:nth-child(7) {
+    top: 33%;
+    left: 66%;
+    animation: animate 8s linear infinite;
+}
+
+.box div:nth-child(8) {
+    top: 70%;
+    left: 60%;
+    animation: animate 16s linear infinite;
+}
+.box div:nth-child(9) {
+    top: 26%;
+    left: 53%;
+    animation: animate 7s linear infinite;
+}
+.box div:nth-child(10) {
+    top: 45%;
+    left: 15%;
+    animation: animate 12s linear infinite;
+}
+
+
+@keyframes animate {
+    0% {
+    transform: scale(0) translateY(0) rotate(0);
+    opacity:1;
+    }
+        
+    100% {
+    transform: scale(1.5) translateY(-90px) rotate(360deg);
+    opacity:0;
+    }
+}

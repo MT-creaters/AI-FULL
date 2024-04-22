@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="./css/date.css">
+        <link rel="stylesheet" href="./css/photo.css">
+        <link rel="stylesheet" href="./css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/4.0.4/dexie.min.js"></script>
+        <title>PhotoInput</title>
+        <!-- ページ遷移 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"></script>
+        <!-- フォント -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+        <!--タイピング-->
+        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+        <div class="slideshow">
+          <div class="slideshow-image" style="background-image: url('./resource/photo/1.jpg')"></div>
+          <div class="slideshow-image" style="background-image: url('./resource/photo/2.jpg')"></div>
+          <div class="slideshow-image" style="background-image: url('./resource/photo/3.jpg')"></div>
+          <div class="slideshow-image" style="background-image: url('./resource/photo/4.jpg')"></div>
+        </div>
+
+    </head>
+  <body>
+      <div class="animsition"
+      data-animsition-in-class="fade-in"
+      data-animsition-in-duration="800"   
+      data-animsition-out-class="fade-out-right"
+      data-animsition-out-duration="800">
+      <h1 class="typing" >・<span class="typed"></span></h1>
+      <div class="originalFileBtn ">
+        SELECT YOUR PHOTO
+        <input type="file" id="picture" name="event" >
+      </div>
+      <hr width="100%" noshade>
+      <form name="form1" method="post" action="#">
+          <p>NAME:<br>
+          <input type="text" name="name" id="photo" autocomplete="name"></p>
+          <button type="button" class="button buttonBlue" id="FormInput">SEND
+            <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+          </button>
+      </form>
+          <!-- <a href="./home.html" class="animsition-link">HOME</a> -->
+          <div class="button_line004" type="button" >
+            <a href="./home.html" class="animsition-link">
+                <button type="button" style="height: 30px;">
+                    <img src="./resource/home.png" alt="Button Image" style="height: 100%;">
+                </button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <script src="./js/trans.js"></script>
+    </body>
+    <script src="./js/app.js" type="module"></script>
+    <script src="./js/input_photo.js" type="module"></script>
+    <script src="./js/input_photo_design.js" type="module"></script>
+</html>

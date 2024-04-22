@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <link rel="stylesheet" href="./css/style.css"> -->
+        <link rel="stylesheet" href="./css/alubum.css">
+        <title>ALBUM</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1 ,viewport-fit=cover">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!-- ページ遷移 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"></script>
+        <!-- データベース -->
+        <script src= "https://cdnjs.cloudflare.com/ajax/libs/dexie/4.0.4/dexie.min.js"></script>
+        <!-- フォント -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="animsition"
+            data-animsition-in-class="fade-in"
+            data-animsition-in-duration="800"   
+            data-animsition-out-class="fade-out-right"
+            data-animsition-out-duration="800">
+            <h1>　ALBUM</h1>
+            <div class="preload">
+                <img src="./resource/photo/1.jpg">
+                <p class="moji">🎉congulatulations🎉</p>
+            </div>
+            <div class="button_line004" type="button" >
+                <a href="./home.html" class="animsition-link">
+                    <button type="button" style="height: 30px;">
+                        <img src="./resource/home.png" alt="Button Image" style="height: 100%;">
+                    </button>
+                </a>
+                <a href="./photo.html" class="animsition-link">
+                    <button type="button" style="height: 30px;">
+                        <img src="./resource/camera.png" alt="Button Image" style="height: 100%;">
+                    </button>
+                </a>
+            </div>
+        </div>
+        <script src="./js/trans.js"></script>
+        <!-- GUI -->
+        <div id="photo"></div>
+        <script src="./js/stored.js" type="module"></script>
+    </body>
+</html>

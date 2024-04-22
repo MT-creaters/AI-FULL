@@ -1,0 +1,110 @@
+/* https://webdesignreference.fc2.net/blog-entry-3.html */
+
+/* .botton-container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 3rem;
+} */
+
+/* .botton{
+    display: flex;
+    flex-direction: column;
+    gap: 4em;
+    width: fit-content;
+} */
+
+.animsition{
+   height: 65vh;
+}
+
+.botton{
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+ul{
+    height: 100%;
+    padding-left: 0;
+
+}
+
+ul.botton li{
+    list-style: none;
+    /* margin-top: 50px; */
+    /* justify-content: space-around; */
+}
+
+
+
+.btn {
+    width: 340px;
+    height: 90px;
+    border: none;
+    /* display: inline-block; */
+    line-height: 90px;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 35px;
+    background-color: #222;
+    padding: 0;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+}
+
+.btn span {
+    position: relative; 
+    z-index: 1;
+}
+  
+.btn:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 140%;
+    background: #78c7d2;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+}
+  
+.btn:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+
+@media screen and (max-height: 560px){
+    .animsition{
+            height: 50vh;
+        }
+    .botton{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    @media screen and (max-width: 700px) {
+        .btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40vw;
+            height: 11vw;
+            font-size: 5vw;
+        }
+    }
+}

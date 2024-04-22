@@ -1,0 +1,212 @@
+/* P5.jsで使用 */
+#defaultCanvas0{position: fixed;top: 0;}
+#video { display:none;}
+#contents {display: block;}
+
+body {
+    font-family: "Yusei Magic", sans-serif;
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+  }
+/* フォント */
+.message {
+    font-family: "Yusei Magic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}  
+/* テキストアニメーション */
+.ml9 {
+    position: relative;
+    font-weight: 200;
+    font-size: 4em;
+    opacity: 1;
+}
+
+.ml9 .text-wrapper {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.2em;
+    padding-right: 0.05em;
+    padding-bottom: 0.1em;
+    overflow: hidden;
+}
+
+.ml9 .letter {
+    transform-origin: 50% 100%;
+    display: inline-block;
+    line-height: 1em;
+}
+
+.loader {
+    margin: 100px auto;
+    font-size: 25px;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-animation: load5 1.1s infinite ease;
+    animation: load5 1.1s infinite ease;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+/*戻るボタン*/
+.button_line004 a {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 200px;
+    padding: 0px 0px;
+    color: #313131;
+    transition: 0.3s ease-in-out;
+    font-weight: 600;
+}
+.button_line004 a:before,
+.button_line004 a:after {
+	content: '';
+	width: 18px;
+	height: 18px;
+	border-color: #6bb6ff;
+	box-sizing: border-box;
+	border-style :solid;
+	display: block;
+	position: absolute;
+	transition: all 0.3s ease-in-out;
+}
+.button_line004 a:before {
+	top: -6px;
+	left: -6px;
+	border-width: 2px 0 0 2px;
+	z-index: 5;
+}
+.button_line004 a:after {
+	bottom: -6px;
+	right: -6px;
+	border-width: 0 2px 2px 0;
+}
+.button_line004 a:hover:before,
+.button_line004 a:hover:after {
+	width: calc(100% + 12px);
+	height: calc(100% + 12px);
+	border-color: #6bb6ff;
+}
+.button_line004 a:hover {
+	color: #fff;
+	background-color: #6bb6ff;
+	border-color: #6bb6ff;
+}
+.button_line004 {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+}
+button {
+    border: none;
+    outline: none;
+    background: transparent;
+    display:flex;
+}
+/* 写真ボタン */
+.btn04 {
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    z-index: 10;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    position: fixed;
+    bottom: 20px;
+    left:50%;
+    display: flex;
+    transform: translateX(-50%);
+}
+ 
+.btn04::before {
+    content: '';
+    background-color: #dda28499;
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    z-index: -1;
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 0 #fff,
+        0 0 0 0 #dda284;
+    transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+}
+.btn04:hover::before {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    box-shadow:
+        0 0 0 25px #fff0,
+        0 0 0 27px #dda28499;
+}
+/* 入力画面ボタン */
+.button_input{
+    display: flex;
+}
+ /*ローディング*/
+@-webkit-keyframes load5 {
+    0%,
+    100% {
+    box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.5), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.7);
+    }
+    12.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.7), 1.8em -1.8em 0 0em #ffffff, 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.5);
+    }
+    25% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.5), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.7), 2.5em 0em 0 0em #ffffff, 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    37.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.5), 2.5em 0em 0 0em rgba(155, 155, 155, 0.7), 1.75em 1.75em 0 0em #ffffff, 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    50% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.5), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.7), 0em 2.5em 0 0em #ffffff, -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    62.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.5), 0em 2.5em 0 0em rgba(155, 155, 155, 0.7), -1.8em 1.8em 0 0em #ffffff, -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    75% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.5), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.7), -2.6em 0em 0 0em #ffffff, -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    87.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.5), -2.6em 0em 0 0em rgba(155, 155, 155, 0.7), -1.8em -1.8em 0 0em #ffffff;
+    }
+}
+@keyframes load5 {
+    0%,
+    100% {
+    box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.5), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.7);
+    }
+    12.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.7), 1.8em -1.8em 0 0em #ffffff, 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.5);
+    }
+    25% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.5), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.7), 2.5em 0em 0 0em #ffffff, 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    37.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.5), 2.5em 0em 0 0em rgba(155, 155, 155, 0.7), 1.75em 1.75em 0 0em #ffffff, 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    50% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.5), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.7), 0em 2.5em 0 0em #ffffff, -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.2), -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    62.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.5), 0em 2.5em 0 0em rgba(155, 155, 155, 0.7), -1.8em 1.8em 0 0em #ffffff, -2.6em 0em 0 0em rgba(155, 155, 155, 0.2), -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    75% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.5), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.7), -2.6em 0em 0 0em #ffffff, -1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2);
+    }
+    87.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(155, 155, 155, 0.2), 1.8em -1.8em 0 0em rgba(155, 155, 155, 0.2), 2.5em 0em 0 0em rgba(155, 155, 155, 0.2), 1.75em 1.75em 0 0em rgba(155, 155, 155, 0.2), 0em 2.5em 0 0em rgba(155, 155, 155, 0.2), -1.8em 1.8em 0 0em rgba(155, 155, 155, 0.5), -2.6em 0em 0 0em rgba(155, 155, 155, 0.7), -1.8em -1.8em 0 0em #ffffff;
+    }
+}
+  
+  
