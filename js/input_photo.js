@@ -29,3 +29,14 @@ document.getElementById('photo').addEventListener('change', function() {
         }
         reader.readAsDataURL(file);
     });
+
+//入力チェック
+document.getElementById('picture').addEventListener('change', function() {
+    let fileCheck = this.value.length;
+    if(fileCheck != 0){
+        document.getElementById('file_check_text').innerText="　 Selected!";
+	}else{
+        document.getElementById('file_check_text').innerText="";
+    }
+    
+});

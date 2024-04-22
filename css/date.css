@@ -93,7 +93,6 @@ label {
 
 
 /* active */
-
 input:valid ~ label{
   top: -20px;
   transform: scale(.75); left: -2px;
