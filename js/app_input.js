@@ -5,7 +5,7 @@ async function FormReceive(){
     let FormNames = [];
     const FormName = document.forms['form1'].elements['selectElement'].value;
     const FormEvent = document.forms['form1'].elements['event'].value;
-    const Formday = document.forms['form1'].elements['day'].value;
+    const Formday = document.forms['form1'].elements['datepicker'].value;
     console.log("namae",FormName)
     console.log("イベント",FormEvent)
     console.log("日付",Formday)
@@ -58,7 +58,7 @@ async function FormReceive(){
         // フォーム内の各要素を取得し、値をクリアする
         document.forms['form1'].elements['selectElement'].value = '';
         document.forms['form1'].elements['event'].value = '';
-        document.forms['form1'].elements['day'].value = '';
+        document.forms['form1'].elements['datepicker'].value = '';
 
         const target = document.querySelector('input[type="date"]');
         target.setAttribute('data-date', '');
@@ -72,11 +72,18 @@ document.querySelector('#FormInput').addEventListener('click', () => FormReceive
 //     console.log("追加された名前:", addedFormName);
 // });
 
-// 日付非表示
-document.querySelector('input[type="date"]').addEventListener('change', event => {
-    const target = event.target;
-    target.setAttribute('data-date', target.value);
-  }, false);
+// 日付関連
+$(function(){
+    $("#datepicker").datepicker({
+        dateFormat: "yy-mm-dd", 
+        changeYear: true,
+        // changeMonth: true,
+    });
+  });
+// document.querySelector('input[type="text"]').addEventListener('change', event => {
+//     const target = event.target;
+//     target.setAttribute('data-date', target.value);
+//   }, false);
 
 //タイピングアニメーション
 var typed = new Typed('.typed', {
