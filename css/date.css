@@ -32,6 +32,10 @@ form {
 }
 
 input {
+  font-family: "Yusei Magic", sans-serif;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   /* -webkit-appearance: none; */
@@ -47,6 +51,10 @@ input {
 input:focus { outline: none; }
 
 select {
+  font-family: "Yusei Magic", sans-serif;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -85,18 +93,15 @@ label {
 
 
 /* active */
-
-input:focus ~ label, input.used ~ label {
+input:valid ~ label{
   top: -20px;
   transform: scale(.75); left: -2px;
-  /* font-size: 14px; */
   color: #4a89dc;
 }
 
 select:focus ~ label, select.used ~ label {
   top: -20px;
   transform: scale(.75); left: -2px;
-  /* font-size: 14px; */
   color: #4a89dc;
 }
 

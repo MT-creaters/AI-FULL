@@ -18,7 +18,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
-    </head>
+        <!-- カレンダー -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/flick/jquery-ui.min.css">  <!-- テーマflickを選択 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
+      </head>
   <body>
     <div class="bg"></div>
     <div class="bg bg2"></div>
@@ -41,7 +45,8 @@
           </hgroup>
           <form name="form1">
             <div class="group">
-              <input type="date" name="day" id="day"><span class="highlight"></span><span class="bar"></span>
+              <!-- <input type="date" name="day" id="day"><span class="highlight"></span><span class="bar"></span> -->
+              <input type="text" id="datepicker" required><span class="highlight"></span><span class="bar"></span>
               <label>Date</label>
             </div>
             <div class="group" id="selectName">

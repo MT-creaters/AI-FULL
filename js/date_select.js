@@ -39,8 +39,9 @@ function ClearName(){
   }
 
 }
-
-document.getElementById('day').addEventListener("change", function() {
+console.log("ok");
+// document.getElementById('datepicker').addEventListener("change", function() {
+document.getElementById('datepicker').addEventListener('click' , () => {
     db_im.open().then(function() {
       var selectElement = document.getElementById("selectElement");
 
