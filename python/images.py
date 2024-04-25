@@ -51,7 +51,7 @@ def upload_photos():
             name = known_face_names[best_match_index]
             result_name_list.append(name)
     
-    return jsonify({'message': 'Data received successfully'},are_lists_equal(result_name_list, name_list))
+    return jsonify(are_lists_equal(result_name_list, name_list))
 
 if __name__ == '__main__':
     app.run(debug=True)

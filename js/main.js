@@ -183,6 +183,21 @@ window.OnClick=()=>{
 					})
 					.then(function(data) {
 						console.log('Pythonからのレスポンス:', data);
+						if(data==true){
+							aniv_hide.hidden = false;
+							year=document.getElementById("aniv")//HTMLのanivというidを持つテキストを引っ張ってきます。
+							console.log('year',year.innerHTML)//持ってきたテキストの名前を変更します。
+							year.innerHTML=josuu(compareDates(event_day,current_date))+'Aniversary' //計算結果を足す。　
+							anime_init();//HTML側の文字を設定しなおしたのでアニメーション初期化
+							aniv_text.restart();
+							aniv_hide.hidden = false;
+							//クラッカーエフェクト
+							confetti({particleCount: 5000,spread: 700000,origin: { y: 1.0 }});
+							//タッチエフェクト初期化
+							touch_img.xyr[0] = mouseX ,touch_img.xyr[1] = mouseY ,touch_img.xyr[2] = 0;
+							//文字エフェクト
+							message.message_reset();
+						}
 					})
 					.catch(function(error) {
 						console.error('There was a problem with the fetch operation:', error);
@@ -190,19 +205,6 @@ window.OnClick=()=>{
 				}).catch(function(error) {
 					console.error("データベースから写真データを取得できませんでした:", error);
 				});
-			aniv_hide.hidden = false;
-			year=document.getElementById("aniv")//HTMLのanivというidを持つテキストを引っ張ってきます。
-			console.log('year',year.innerHTML)//持ってきたテキストの名前を変更します。
-			year.innerHTML=josuu(compareDates(event_day,current_date))+'Aniversary' //計算結果を足す。　
-			anime_init();//HTML側の文字を設定しなおしたのでアニメーション初期化
-			aniv_text.restart();
-			aniv_hide.hidden = false;
-			//クラッカーエフェクト
-			confetti({particleCount: 5000,spread: 700000,origin: { y: 1.0 }});
-			//タッチエフェクト初期化
-			touch_img.xyr[0] = mouseX ,touch_img.xyr[1] = mouseY ,touch_img.xyr[2] = 0;
-			//文字エフェクト
-			message.message_reset();
 		}
 	});
 	//写真データ
