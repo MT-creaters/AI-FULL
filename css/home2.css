@@ -1,0 +1,148 @@
+* { box-sizing:border-box; }
+
+html {
+    height:100%;
+    /* background: linear-gradient(to bottom, #ece5da 0%, #eed1a0 100%); */
+    /* background: linear-gradient(to bottom, #ece5da 0%, #ecab3a 100%); */
+    background: linear-gradient(to bottom, #ece5da 0%, #ecab3a 100%);
+}
+
+body {
+    margin: 0;
+    /* font-family: "Yusei Magic", sans-serif; */
+    /* background: linear-gradient(to bottom, #ece5da 0%, #ecab3a 100%); */
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+}
+
+/* https://fastcoding.jp/blog/all/info/202104-text-animation/  Awesome Text-Shadow  */
+h1{
+    padding: 1rem;
+    /* margin: 0; */
+    font-family: "Paytone One";
+    color: #202020;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    
+    /* https://goworkship.com/magazine/css-javascript-animated-backgrounds/ 文字に画像を表示する*/
+
+    /* background: url(../images/sp_mini.png);
+    background-size: auto 200%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    animation: shine 8s linear infinite;
+    &:nth-child(2){
+        top: 50vh;
+    }
+    @keyframes shine{
+        from{
+            background-position: center 0;
+        }
+        to{
+            background-position: center 200%;
+        }
+    } */
+}
+
+.AI{
+    margin: 11px 0 17px 0;
+    font-size: 140px;
+    line-height: 80px;
+    /* background-image: url(../resource/sinapusu.jpg); */
+    /* background-image: linear-gradient(to bottom,#f7eb3b 30%,#f5d839 40%,#eead34 50%, #eb9531 100%); */
+    /* background-image: linear-gradient(to bottom,#eee2e9 30%,#f5c6d5 40%,#f1acb6 60%, #f5acac 100%); */
+    background-image: linear-gradient(to bottom,#f1ebe5 30%,#e3e8f0 40%,#d5d5ec 60%, #747fa8 100%);
+    background-position: left 1000px top 600px;
+    background-size: auto 100%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    /* text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff; */
+    filter:
+        drop-shadow(0 13px 4px #c4b59d)
+        drop-shadow(0 -2px 1px #fff)
+}
+
+
+
+/* .AI{
+    position: relative;
+    margin: 11px 0 17px 0;
+    font-size: 140px;
+    line-height: 80px;
+    color: #f1ebe5;
+    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+    letter-spacing: -2px;
+}  */
+
+/* .AI::before{
+    position: absolute;
+    background: url(../resource/AI.jpg);
+    background-size: auto 200%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    text-shadow: none;
+    animation: shine 8s linear infinite;
+    &:nth-child(2){
+        top: 50vh;
+    }
+    @keyframes shine{
+        from{
+            background-position: center 0;
+        }
+        to{
+            background-position: center 200%;
+        }
+    } 
+    
+} */
+
+
+
+
+
+/* h1 .AI{
+    position: absolute;
+    top: 30;
+    z-index: 100;
+    background: url(../resource/AI.jpg);
+    background-size: auto 200%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    animation: shine 8s linear infinite;
+    &:nth-child(2){
+        top: 50vh;
+    }
+    @keyframes shine{
+        from{
+            background-position: center 0;
+        }
+        to{
+            background-position: center 200%;
+        }
+    } 
+} */
+
+
+
+/* h1 .AI{
+    margin: 11px 0 17px 0;
+    font-size: 140px;
+    line-height: 80px;
+    color: #0e1c96;
+    text-shadow: 0 13.36px 8.896px #aec1c9,0 -2px 1px #0a6348;
+    letter-spacing: -2px;
+} */
+
+h1 .title{
+    /* display: block; */
+    margin: 11px 0 17px 0;
+    font-size: 140px;
+    line-height: 80px;
+    color: #f1ebe5;
+    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+    letter-spacing: -2px;
+}
