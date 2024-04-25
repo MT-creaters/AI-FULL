@@ -1,3 +1,5 @@
+//写真撮影時にphoto_dataをpython側に回すために追加
+import {db_im} from './app.js';
 //テキストアニメ;
 
 //数字を序数に変換する関数
@@ -162,8 +164,32 @@ window.OnClick=()=>{
 		console.log(compareDates(current_date,event_day));
 		if(compareDates(current_date,event_day)!= false && data_one){
 			window.name_list=data_one.name //ここで、イベントのデータベースを送信しています。
-			startRecording(canvas);
+			// startRecording(canvas);
 			ImgReceive(); //画像データを受信
+			Promise.all([db_im.photos.toArray(), db.files.toArray()]).then(function([photos,files]) {
+				// 取得したデータをPythonサーバーに送信する
+				fetch('http://127.0.0.1:5000/upload_photos', {
+				method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ photos: photos,files: files, name_list:window.name_list}), // データをJSON形式に変換して送信
+					})
+					.then(function(response) {
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						return response.json();
+					})
+					.then(function(data) {
+						console.log('Pythonからのレスポンス:', data);
+					})
+					.catch(function(error) {
+						console.error('There was a problem with the fetch operation:', error);
+					});
+				}).catch(function(error) {
+					console.error("データベースから写真データを取得できませんでした:", error);
+				});
 			aniv_hide.hidden = false;
 			year=document.getElementById("aniv")//HTMLのanivというidを持つテキストを引っ張ってきます。
 			console.log('year',year.innerHTML)//持ってきたテキストの名前を変更します。
