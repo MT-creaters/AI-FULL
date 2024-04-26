@@ -194,7 +194,7 @@ window.mouseClicked=()=>{
 }
 //ウィンドウサイズ変化時の処理
 window.windowResized=()=> {
-	var direction = Math.abs(window.oritentation);
+	var direction = Math.abs(window.orientation);
 	if(direction==90 || direction==-90){
 		web_cam.value_change();
 		resizeCanvas(windowHeight, windowWidth);
