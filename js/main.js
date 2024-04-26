@@ -197,7 +197,7 @@ window.windowResized=()=> {
 	var direction = Math.abs(window.orientation);
 	if(direction==90 || direction==-90){
 		web_cam.value_change();
-		resizeCanvas(windowHeight, windowWidth);
+		resizeCanvas(windowWidth, windowHeight);
 		console.log('yoko');
 		document.getElementById('direction').innerHTML='よこよこよこよこよこよこ';
 	}else{
