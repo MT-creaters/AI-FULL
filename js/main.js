@@ -199,10 +199,12 @@ window.windowResized=()=> {
 		web_cam.value_change();
 		resizeCanvas(windowHeight, windowWidth);
 		console.log('yoko');
+		document.getElementById('direction').innerHTML='横';
 	}else{
 		web_cam.value_change();
 		resizeCanvas(windowWidth, windowHeight);
 		console.log('tate');
+		document.getElementById('direction').innerHTML='縦';
 	}
 }
 
