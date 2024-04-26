@@ -134,6 +134,8 @@ window.setup =() =>{
 	aniv_hide = document.getElementById("aniv");
 	message = new Message();
 	touch_img = new Touch_img();
+
+	// calculateLayout();
 }
 //毎フレーム処理
 window.draw =()=> {
@@ -190,9 +192,17 @@ window.mouseClicked=()=>{
 }
 //ウィンドウサイズ変化時の処理
 window.windowResized=()=> {
-	web_cam.value_change();
-	resizeCanvas(windowWidth, windowHeight);
+	var direction = Math.abs(window.oritentation);
+	if(direction==90 || direction==-90){
+		web_cam.value_change();
+		resizeCanvas(windowHeight, windowWidth);
+	}else{
+		web_cam.value_change();
+		resizeCanvas(windowWidth, windowHeight);
+	}
 }
+
+
 //ウェブカメラ
 class Web_cam{
 	constructor(){
