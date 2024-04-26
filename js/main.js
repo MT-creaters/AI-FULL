@@ -134,6 +134,8 @@ window.setup =() =>{
 	aniv_hide = document.getElementById("aniv");
 	message = new Message();
 	touch_img = new Touch_img();
+
+	// calculateLayout();
 }
 //毎フレーム処理
 window.draw =()=> {
@@ -146,7 +148,9 @@ window.draw =()=> {
 	}
 }
 //マウスクリック処理(html)
+console.log("a")
 window.OnClick=()=>{
+	console.log("b")
 	//エフェクトをつけるかの判断部分
 	var buff = window.db_buff //吉田君データベースからevent,date,nameを取得。この時点では辞書型みたいになってます。
 	//buff.dayのように構造体的にアクセスできます。
@@ -190,9 +194,19 @@ window.mouseClicked=()=>{
 }
 //ウィンドウサイズ変化時の処理
 window.windowResized=()=> {
-	web_cam.value_change();
-	resizeCanvas(windowWidth, windowHeight);
+	var direction = Math.abs(window.oritentation);
+	if(direction==90 || direction==-90){
+		web_cam.value_change();
+		resizeCanvas(windowHeight, windowWidth);
+		console.log('yoko');
+	}else{
+		web_cam.value_change();
+		resizeCanvas(windowWidth, windowHeight);
+		console.log('tate');
+	}
 }
+
+
 //ウェブカメラ
 class Web_cam{
 	constructor(){
@@ -208,6 +222,7 @@ class Web_cam{
 		this.size_scale = max(width / img.width ,height / img.height);
 		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
+		console.log('value_chage関数');
 	}
 	web_cam_draw(load ,img){
 		translate(width, 0);
