@@ -53,8 +53,8 @@ h1{
     /* background-image: linear-gradient(to bottom,#f7eb3b 30%,#f5d839 40%,#eead34 50%, #eb9531 100%); */
     /* background-image: linear-gradient(to bottom,#eee2e9 30%,#f5c6d5 40%,#f1acb6 60%, #f5acac 100%); */
     background-image: linear-gradient(to bottom,#f1ebe5 30%,#e3e8f0 40%,#d5d5ec 60%, #747fa8 100%);
-    background-position: left 1000px top 600px;
-    background-size: auto 100%;
+    /* background-position: left 1000px top 600px; */
+    /* background-size: auto 100%; */
     background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
