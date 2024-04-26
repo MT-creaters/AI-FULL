@@ -18,12 +18,6 @@ function number_message(number) {
 // 日付を比較する関数
 function compareDates(date1, date2) {
 	//日付を入力することで、その差を判定する関数
-	console.log("day1_year",date1.getFullYear())
-	console.log("day2_year",date2.getFullYear())
-	console.log("day1_month",date1.getMonth())
-	console.log("day2_month",date2.getMonth())
-	console.log("day1_day",date1.getDate())
-	console.log("day2_day",date2.getDate())
     if (date1.getDate()==date2.getDate()&&date1.getMonth()==date2.getMonth()) {
 		var year=Math.abs(date1.getFullYear()-date2.getFullYear());
 		if(year==0) return 'zero'; //false(0)にならないよう何かしらの文字列を返します。
@@ -33,6 +27,23 @@ function compareDates(date1, date2) {
         return false; //日付が異なっていた場合
     }
 }
+//データベースから一番近い日付のデータを持ってくる関数
+function find_event_day(date1,data){
+	//引数:data(dataのフォームで入力された配列)
+	//引数:date(現在時刻)
+ 	 var index='none';//撮影したい日のインデックス(最初は何もないの意味で'none'で初期化)
+	 var length=data.length; //保存されているデータベースの個数
+	 var send_data = 'none';//dataには何も格納しない(falseだとなんか動かんのでnoneで初期化)
+	 for(let i=0;i<length;i++)//日付が一致する日を探索
+	 {	var event_day = new Date(data[i].day);
+		if(compareDates(date1, event_day))  var send_data = data[i];
+	 }
+	if(send_data==='none') return false;
+	else return send_data;
+	//返り値はdataの配列{}の形になっています。
+	//名前にアクセスする場合はsend_data.nameのようにすれば日付にアクセスできます。
+}
+
 let mediaRecorder; // メディアレコーダーオブジェクトを保持する変数
 let recordedChunks = []; // 録画されたチャンクを保持する配列
 //データベース
@@ -141,17 +152,16 @@ window.OnClick=()=>{
 	//buff.dayのように構造体的にアクセスできます。
 	var current_date = new Date();
 	buff.toArray().then((noteArray) => {
-		console.log("取得したノート一覧:", noteArray);
-		console.log("データの長さ", noteArray.length);
-		console.log("出したいインデックス");
-		console.log(window.buff);
 		
-		var event_day = new Date(noteArray[0].day)//データベースの一番上の日をとってくる。本当は複数のを参照したい。
+		var data_one= find_event_day(current_date,noteArray);
+		console.log('data_one',data_one);
+		var event_day = new Date(data_one.day);//データベースの一番上の日をとってくる。本当は複数のを参照したい。
 		//var name=window.day_db_data.name
 		let delta_t=compareDates(event_day,current_date);
 		message = new Message(number_message(delta_t)); //メッセージを定義しなおし
 		console.log(compareDates(current_date,event_day));
-		if(compareDates(current_date,event_day)!= false){
+		if(compareDates(current_date,event_day)!= false && data_one){
+			window.name_list=data_one.name //ここで、イベントのデータベースを送信しています。
 			startRecording(canvas);
 			ImgReceive(); //画像データを受信
 			aniv_hide.hidden = false;
