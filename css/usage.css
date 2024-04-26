@@ -30,8 +30,8 @@ body {
   }
   
   .txt_color span:nth-child(odd) {
-    color: #36b077;
+    color: #f57640;
   }
   .txt_color span:nth-child(even) {
-    color: #77d943;
+    color: #ee4815;
   }
