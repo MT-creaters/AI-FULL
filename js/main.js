@@ -142,12 +142,13 @@ window.draw =()=> {
 	let img = web_cam.web_cam_capture();
 	var direction = Math.abs(window.orientation);
 	if (img.width-300) {
-		web_cam.value_change();
 		if(direction==90 || direction==-90){
+			web_cam.after_value_change();
 			web_cam.web_cam_draw_horizon(load, img);
 			document.getElementById('draw').innerHTML='あなたは実行されていますか';
 		}
 		else{
+			web_cam.value_change();
 			web_cam.web_cam_draw(load,img);
 			document.getElementById('draw').innerHTML='';
 		}
