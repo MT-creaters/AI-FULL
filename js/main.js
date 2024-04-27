@@ -141,18 +141,25 @@ window.setup =() =>{
 window.draw =()=> {
 	let img = web_cam.web_cam_capture();
 	var direction = Math.abs(window.orientation);
+	var flag=0;
 	if (img.width-300) {
 		if(direction==90 || direction==-90){
 			if(img.width>img.height){
 				web_cam.yokonaga_value_change();
 				web_cam.web_cam_draw_horizon_yokonaga(load, img);
 				document.getElementById('draw').innerHTML='よこながが実行されているはずです';
+				flag = 1;
 			}
 			else{
 				web_cam.after_value_change();
 				web_cam.web_cam_draw_horizon(load, img);
 				document.getElementById('draw').innerHTML='Web_cam_draw_horizonが実行されています';
 			}
+		}
+		else if(flag==1){
+			web_cam.tatenaga_value_change();
+			web_cam.web_cam_draw(load,img);
+			document.getElementById('draw').innerHTML='web';
 		}
 		else{
 			web_cam.value_change();
@@ -264,6 +271,13 @@ class Web_cam{
 		document.getElementById('disp').innerHTML="(width,height)= : "+width+","+height+" (img.width,img.height)= "+ img.width+","+img.height;
 	}
 	yokonaga_value_change(){
+		let img = this.capture.get();
+		this.size_scale = max(width / img.height, height / img.width);
+		this.scaled = [img.height * this.size_scale, img.width * this.size_scale];
+		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
+		document.getElementById('disp').innerHTML="(width,height)= : "+width+","+height+" (img.width,img.height)= "+ img.width+","+img.height;
+	}
+	tatenaga_value_change(){
 		let img = this.capture.get();
 		this.size_scale = max(width / img.height, height / img.width);
 		this.scaled = [img.height * this.size_scale, img.width * this.size_scale];
