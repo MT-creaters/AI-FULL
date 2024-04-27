@@ -1,13 +1,4 @@
 //テキストアニメ;
-let isPortrait = window.matchMedia("(orientation: portrait)").matches;
-function change_screen(){
-	if(isPortrait != window.matchMedia("(orientation: portrait)").matches){
-		isPortrait = window.matchMedia("(orientation: portrait)").matches;
-		console.log(isPortrait);
-		web_cam.value_change2();
-		// resizeCanvas(windowHeight,windowWidth,);
-	}
-}
 
 //数字を序数に変換する関数
 function josuu(number) {
@@ -55,12 +46,43 @@ function find_event_day(date1,data){
 
 let mediaRecorder; // メディアレコーダーオブジェクトを保持する変数
 let recordedChunks = []; // 録画されたチャンクを保持する配列
+let recordedBlobs = [];
 //データベース
 export var db_cap = new Dexie('Capture');
 db_cap.version(1).stores({
     videos: "video"
   });
 
+// ウェブページ全体のスクリーンショットを取得してダウンロードする関数
+function capturePage() {
+    // ビューポートサイズをページの全体に設定する
+    // document.documentElement.style.height = '100%';
+    // document.body.style.height = '100%';
+    // document.documentElement.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
+	const captureArea = document.getElementById('screen_shot');
+    // ウェブページ全体をキャプチャ
+    html2canvas(captureArea).then(canvas => {
+        // キャンバスを画像としてダウンロード
+        const img = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = img;
+        link.download = 'screenshot.png';
+        link.click();
+    });
+
+    // ページの表示設定を元に戻す
+    // document.documentElement.style.height = '';
+    // document.body.style.height = '';
+    // document.documentElement.style.overflow = '';
+    // document.body.style.overflow = '';
+}
+
+function video_record_start(){
+	setTimeout(() => {
+		capturePage();
+    }, 8000); // 10秒後に録画を停止
+}
 // 録画を開始する関数
 function startRecording(canvas) {
     let canvasStream = canvas.elt.captureStream();
@@ -137,6 +159,7 @@ window.setup =() =>{
 	frameRate(30);
 	canvas = createCanvas(windowWidth, windowHeight);
 	canvas.style('z-index','-1');
+	canvas.parent('screen_shot');
 	web_cam = new Web_cam();
 	//aniv_text.pause();
 	load = document.getElementById("load");
@@ -152,7 +175,6 @@ window.draw =()=> {
 		web_cam.web_cam_draw(load,img);
 		touch_img.touch_effect();
 		message.message_draw();
-		change_screen();
 	}
 }
 //マウスクリック処理(html)
@@ -172,7 +194,8 @@ window.OnClick=()=>{
 		console.log(compareDates(current_date,event_day));
 		if(compareDates(current_date,event_day)!= false && data_one){
 			window.name_list=data_one.name //ここで、イベントのデータベースを送信しています。
-			startRecording(canvas);
+			// startRecording(canvas);
+			video_record_start();
 			ImgReceive(); //画像データを受信
 			aniv_hide.hidden = false;
 			year=document.getElementById("aniv")//HTMLのanivというidを持つテキストを引っ張ってきます。
@@ -200,7 +223,7 @@ window.mouseClicked=()=>{
 }
 //ウィンドウサイズ変化時の処理
 window.windowResized=()=> {
-	// web_cam.value_change();
+	web_cam.value_change();
 	resizeCanvas(windowWidth, windowHeight);
 }
 //ウェブカメラ
@@ -216,12 +239,6 @@ class Web_cam{
 	value_change(){
 		let img = this.capture.get();
 		this.size_scale = max(width / img.width ,height / img.height);
-		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
-		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
-	}
-	value_change2(){
-		let img = this.capture.get();
-		this.size_scale = min(width / img.width ,height / img.height);
 		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
 	}

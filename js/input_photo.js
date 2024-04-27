@@ -4,7 +4,7 @@ import {db_im} from './app.js';
 function saveImage(imageData, fileType){
     const form = document.forms['form1'];
     const FormName = form.elements['name'].value;
-    // const blob = new Blob([imageData], { type: fileType});
+    const blob = new Blob([imageData], { type: fileType});
     db_im.photos.count().then((num)=>{
         db_im.photos.put({
             name: FormName,

@@ -17,24 +17,29 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+        <!--スクショ  -->
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
         <!-- GUI -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
         <script src="./js/data_app.js" type="module"></script>
         <script src="./js/a.js" type="module"></script>
-        <script src="./js/main.js" type="module"></script>
+        <!-- <script src="./js/main.js" type="module"></script> -->
         <!-- <script>
             // JavaScriptでwindow.yearを定義する
             window.year = new Date().getFullYear();
         </script> -->
     </head>
     <body>
-        <div class="message">   
-            <h1 style="text-align:center" class="ml9" >
-                <span style="text-align:center" class="text-wrapper">
-                    <span style="text-align:center" class="letters" id="aniv" hidden>aaaaaa</span>
-                </span>
-                <script src="./js/text.js" type="module"></script>
-            </h1>
+        <div id="screen_shot">
+            <div class="message">   
+                <h1 style="text-align:center" class="ml9" >
+                    <span style="text-align:center" class="text-wrapper">
+                        <span style="text-align:center" class="letters" id="aniv" hidden>aaaaaa</span>
+                    </span>
+                    <script src="./js/text.js" type="module"></script>
+                </h1>
+            </div>
+            <script src="./js/main.js" type="module"></script>
         </div>
         <div class="loader" id="load"></div>
         <!-- 入力ボタン -->
