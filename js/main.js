@@ -243,7 +243,7 @@ class Web_cam{
 	}
 	web_cam_draw_horizon(load ,img){
 		translate(width, 0);
-		scale(-1, 0.5);
+		scale(-1, height/width);
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
