@@ -145,15 +145,12 @@ window.draw =()=> {
 		web_cam.value_change();
 		if(direction==90 || direction==-90){
 			web_cam.web_cam_draw_horizon(load, img);
-			// cap.size(640, 480);
 			document.getElementById('draw').innerHTML='あなたは実行されていますか';
 		}
 		else{
 			web_cam.web_cam_draw(load,img);
-			// cap.size(480, 640);
 			document.getElementById('draw').innerHTML='';
 		}
-		// cap.hide();
 		touch_img.touch_effect();
 		message.message_draw();
 	}
@@ -242,7 +239,7 @@ class Web_cam{
 	}
 	after_value_change(){
 		let img = this.capture.get();
-		this.size_scale = max(width / img.height ,height / img.width);
+		this.size_scale = max(width / img.width ,height / img.height);
 		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
 		// this.scaled = [width, height]
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
