@@ -142,13 +142,14 @@ window.draw =()=> {
 	let img = web_cam.web_cam_capture();
 	var direction = Math.abs(window.orientation);
 	if (img.width-300) {
-		document.getElementById('draw').innerHTML='あなたは実行されていますか';
 		web_cam.value_change();
 		if(direction==90 || direction==-90){
 			web_cam.web_cam_draw_horizon(load, img);
+			document.getElementById('draw').innerHTML='あなたは実行されていますか';
 		}
 		else{
 			web_cam.web_cam_draw(load,img);
+			document.getElementById('draw').innerHTML='';
 		}
 		touch_img.touch_effect();
 		message.message_draw();
@@ -204,12 +205,12 @@ window.windowResized=()=> {
 	var direction = Math.abs(window.orientation);
 	if(direction==90 || direction==-90){
 		web_cam.value_change();
-		resizeCanvas(windowWidth, windowHeight);
+		createCanvas(windowWidth, windowHeight);
 		console.log('yoko');
 		document.getElementById('direction').innerHTML='よこよこよこよこ：'+windowWidth+", "+windowWidth;
 	}else{
 		web_cam.value_change();
-		resizeCanvas(windowWidth, windowHeight);
+		createCanvas(windowWidth, windowHeight);
 		console.log('tate');
 		document.getElementById('direction').innerHTML='たてたてたてたて：'+windowWidth+", "+windowWidth;
 	}
