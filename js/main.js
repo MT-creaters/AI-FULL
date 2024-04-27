@@ -140,9 +140,15 @@ window.setup =() =>{
 //毎フレーム処理
 window.draw =()=> {
 	let img = web_cam.web_cam_capture();
+	var direction = Math.abs(window.orientation);
 	if (img.width-300) {
 		web_cam.value_change();
-		web_cam.web_cam_draw(load,img);
+		if(direction==90 || direction==-90){
+			web_cam.web_cam_draw_horizon(load, img);
+		}
+		else{
+			web_cam.web_cam_draw(load,img);
+		}
 		touch_img.touch_effect();
 		message.message_draw();
 	}
@@ -229,6 +235,15 @@ class Web_cam{
 	web_cam_draw(load ,img){
 		translate(width, 0);
 		scale(-1, 1);
+		if(this.alpha > 0) load.hidden = true;
+		if (this.alpha <255) this.alpha += 30;
+		tint(255 , this.alpha);
+		image(img, 0,0, this.scaled[0], this.scaled[1]);
+		pop();
+	}
+	web_cam_draw_horizon(load ,img){
+		translate(width, 0);
+		scale(-1, 0.5);
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
