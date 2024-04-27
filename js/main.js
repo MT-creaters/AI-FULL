@@ -1,10 +1,11 @@
 //テキストアニメ;
-let isPortrait = window.matchMedia("(orientation: portrait)");
-console.log("ok");
+let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 function change_screen(){
-	if(isPortrait != window.matchMedia("(orientation: portrait)")){
-		isPortrait = window.matchMedia("(orientation: portrait)");
+	if(isPortrait != window.matchMedia("(orientation: portrait)").matches){
+		isPortrait = window.matchMedia("(orientation: portrait)").matches;
+		console.log(isPortrait);
 		web_cam.value_change();
+		resizeCanvas(windowWidth, windowHeight);
 	}
 }
 
