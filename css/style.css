@@ -4,6 +4,7 @@
 #contents {display: block;}
 
 body {
+    margin: 0;
     font-family: "Yusei Magic", sans-serif;
     background: #ffffff;
     -webkit-font-smoothing: antialiased;
