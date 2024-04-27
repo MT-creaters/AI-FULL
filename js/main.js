@@ -68,13 +68,13 @@ function startRecording(canvas) {
     };
 
     mediaRecorder.onstop = () => {
-        let recordedBlob = new Blob(recordedChunks, { type: 'video/mp4' });
+        let recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
         let videoURL = URL.createObjectURL(recordedBlob);
         // db_cap.videos.put({ video: recordedBlob }); // 録画されたビデオをデータベースに保存
         db_cap.videos.put({ video: videoURL }); // 録画されたビデオをデータベースに保存
 		const a = document.createElement('a');
 		a.href = videoURL;
-		a.download = 'video.mp4';
+		a.download = 'video.webm';
 
 		a.style.display = 'none';
 		document.body.appendChild(a);
