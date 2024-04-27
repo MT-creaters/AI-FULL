@@ -90,7 +90,8 @@ async function detectAllFaces() {
             try {
                 // BlobデータからBlob URLを作成
                 const blobUrl = URL.createObjectURL(photoData);
-                
+                const blobArray = new Uint8Array(photoData);
+                console.log(blobArray);
                 // 画像を読み込む
                 const img = new Image();
                 img.src = blobUrl;
@@ -114,7 +115,7 @@ async function detectAllFaces() {
                 
                 return faceData;
             } catch (error) {
-                console.error("Error detecting faces:", error);
+                console.error("Error detecting faces:", error.message);
                 throw error;
             }
         });
@@ -122,7 +123,7 @@ async function detectAllFaces() {
         // すべての画像の顔検出が完了するのを待つ
         await Promise.all(faceDetectionPromises);
     } catch (error) {
-        console.error('Error fetching photos:', error);
+        console.error('Error fetching photos:', error.message);
     }
 }
 
