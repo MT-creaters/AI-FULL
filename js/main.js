@@ -4,7 +4,7 @@ function change_screen(){
 	if(isPortrait != window.matchMedia("(orientation: portrait)").matches){
 		isPortrait = window.matchMedia("(orientation: portrait)").matches;
 		console.log(isPortrait);
-		// web_cam.value_change();
+		web_cam.value_change2();
 		// resizeCanvas(windowHeight,windowWidth,);
 	}
 }
@@ -216,6 +216,12 @@ class Web_cam{
 	value_change(){
 		let img = this.capture.get();
 		this.size_scale = max(width / img.width ,height / img.height);
+		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
+		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
+	}
+	value_change2(){
+		let img = this.capture.get();
+		this.size_scale = min(width / img.width ,height / img.height);
 		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
 	}
