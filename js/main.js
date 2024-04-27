@@ -159,13 +159,12 @@ window.draw =()=> {
 		else if(flag==1){
 			web_cam.tatenaga_value_change();
 			web_cam.web_cam_draw(load,img);
-			document.getElementById('draw').innerHTML='web';
 			document.getElementById('draw').innerHTML='たてながが実行されているはずです';
 		}
 		else{
 			web_cam.value_change();
 			web_cam.web_cam_draw(load,img);
-			document.getElementById('draw').innerHTML='web';
+			document.getElementById('draw').innerHTML='ただの縦画面です。ただの縦画面です。ただの縦画面です。';
 		}
 		touch_img.touch_effect();
 		message.message_draw();
