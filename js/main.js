@@ -265,6 +265,7 @@ class Web_cam{
 		tint(255 , this.alpha);
 		// image(img, 0,0, this.scaled[1]/3, this.scaled[0]/3);
 		image(img, 0, 0, (this.scaled[1]*windowHeight)/this.scaled[0], windowHeight)
+		translate(windowWidth/2, 0)
 		document.getElementById('yoko').innerHTML="よこ iamge= "+image;
 		pop();
 	}
