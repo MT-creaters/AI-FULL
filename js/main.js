@@ -43,7 +43,6 @@ function find_event_day(date1,data){
 	//返り値はdataの配列{}の形になっています。
 	//名前にアクセスする場合はsend_data.nameのようにすれば日付にアクセスできます。
 }
-
 let mediaRecorder; // メディアレコーダーオブジェクトを保持する変数
 let recordedChunks = []; // 録画されたチャンクを保持する配列
 //データベース
@@ -89,7 +88,14 @@ function startRecording(canvas) {
     }, 8000); // 10秒後に録画を停止
 }
 export let aniv_text;
-export function anime_init() {
+export function anime_init(event='aniv') {
+	//変更点4/27:引数にイベント名を入れてください
+	if(event=='記念日'){
+		var clor_message='#ef93b6';//カラーを変更(仮)
+	}
+	else if(event=='誕生日'){
+		var clor_message='#34eba1';//カラーを変更(仮)
+	}
 	var textWrapper = document.querySelector('.ml9 .letters');
 	textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>")
 	aniv_text = anime.timeline()
@@ -98,7 +104,8 @@ export function anime_init() {
 	scale: [0, 1],
 	duration: 1500,
 	elasticity: 600,
-	color: '#ef93b6',
+	//color: '#ef93b6',
+	color : clor_message,
 	delay: (el, i) => 45 * (i+1)
 	})
 	.add({
@@ -153,22 +160,44 @@ window.OnClick=()=>{
 	var current_date = new Date();
 	buff.toArray().then((noteArray) => {
 		
-		var data_one= find_event_day(current_date,noteArray);
-		console.log('data_one',data_one);
-		var event_day = new Date(data_one.day);//データベースの一番上の日をとってくる。本当は複数のを参照したい。
-		//var name=window.day_db_data.name
-		let delta_t=compareDates(event_day,current_date);
-		message = new Message(number_message(delta_t)); //メッセージを定義しなおし
+		var data_one= find_event_day(current_date,noteArray);//データベースからイベントを探索
+		var event_day = new Date(data_one.day);//今日と最も近い月日のイベントの日付
 		console.log(compareDates(current_date,event_day));
 		if(compareDates(current_date,event_day)!= false && data_one){
 			window.name_list=data_one.name //ここで、イベントのデータベースを送信しています。
 			startRecording(canvas);
 			ImgReceive(); //画像データを受信
 			aniv_hide.hidden = false;
+			var gif_1 = document.getElementById('myGif');//表示させるGIFのIDをHTMLから引っ張る
+			var gif_2 = document.getElementById('myGif_2');//表示させるGIFを引っ張る
+			var gif_3 = document.getElementById('kirakira_left');//表示させるGIFを引っ張る
+			var gif_4 = document.getElementById('kirakira_right');//表示させるGIFを引っ張る
 			year=document.getElementById("aniv")//HTMLのanivというidを持つテキストを引っ張ってきます。
-			console.log('year',year.innerHTML)//持ってきたテキストの名前を変更します。
-			year.innerHTML=josuu(compareDates(event_day,current_date))+'Aniversary' //計算結果を足す。　
-			anime_init();//HTML側の文字を設定しなおしたのでアニメーション初期化
+			gif_1.style.display = 'none'; // GIFを非表示(連続してボタンを押したときの対応)
+			gif_2.style.display = 'none'; // GIFを非表示
+			gif_3.style.display = 'none'; // GIFを非表示
+			gif_4.style.display = 'none'; // GIFを非表示
+			//非常に不本意ですが、メッセージ作成の部分を関数化できなかったのでここに書きます。
+			if(data_one.event=='誕生日'){ 
+				//誕生日と設定した場合のメッセージを書きます。
+				year.innerHTML='Happy Birthday!!!' 
+				var undermessage='お誕生日おめでとう！！！！'
+				gif_1.src='./resource/happy-birthday.gif'
+				gif_2.src='./resource/happy-birthday.gif'
+			}
+			else if(data_one.event=='記念日'){
+				//記念日の場合のメッセージを書きます。
+				 year.innerHTML=josuu(compareDates(event_day,current_date))+'Aniversary' //計算結果を足す。
+				 var undermessage=number_message(compareDates(event_day,current_date))+'これからもよろしく'
+				 gif_1.src='./resource/おめでとう-嬉しい.gif'
+				 gif_2.src='./resource/おめでとう-嬉しい_反転.gif'
+			}
+			message = new Message(undermessage)//画面上に表示する下段のメッセージをインスタンス化します。
+   			gif_1.style.display = 'block'; // GIFを表示
+			gif_2.style.display = 'block'; // GIFを表示
+			gif_3.style.display = 'block'; // GIFを表示
+			gif_4.style.display = 'block'; // GIFを表示
+			anime_init(data_one.event);//HTML側の文字を設定しなおしたのでアニメーション初期化
 			aniv_text.restart();
 			aniv_hide.hidden = false;
 			//クラッカーエフェクト
@@ -238,9 +267,9 @@ class Touch_img{
 }
 //メッセージ
 class Message{
-	constructor(delta_t){
+	constructor(undermessage='いえーーーーーい'){
 		textFont("'Yusei Magic', sans-serif"); 
-		this.str = delta_t+'これからもよろしく！';
+		this.str = undermessage;
 		this.link_count = 0;
 		this.link_flag = false;
 		this.m_time = millis();
@@ -268,9 +297,30 @@ class Message{
 			this.link_flag = false;
 		}
 		fill(0,255);
-		textSize(32);
+		//画面の幅に応じてフォントサイズを変更していく(納金)
+		var font=30
+		var tall= height/7
+
+		if(width<=300) {
+			tall= height/3;
+			font =10;
+		}
+		else if(width<=400) {
+			tall= height/3.7;
+			font =15;
+		}
+		else if(width<=500) {
+			font=25;
+			tall= height/5;
+		}
+		else if(width<=550){
+			font =25;
+			tall= height/6;
+		}
+
+		textSize(font);
 		textAlign(CENTER);
-		text(this.link_str, width/2, height/2);
+		text(this.link_str, width/2, height/2-tall);
 	}
 	message_reset(){
 		this.link_count = 0;

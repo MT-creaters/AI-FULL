@@ -3,6 +3,56 @@
 #video { display:none;}
 #contents {display: block;}
 
+#myGif {
+    max-width: 30vw;
+    bottom: 0;
+    position: absolute;
+    opacity: 0;
+    transform: translateX(-100px);
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+#myGif_2 {
+    max-width: 30vw;
+    bottom: 0;
+    right:0;
+    position: absolute;
+    opacity: 0;
+    transform: translateX(100px);
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+#kirakira_left {
+    top: 0px;
+    left: 5vw;
+    max-width: 10vw;
+    position: absolute;
+    transform: translateX(00px);
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+#kirakira_right {
+    top: 0px;
+    max-width: 10vw;
+    position: absolute;
+    right: 5vw;
+    transform: translateX(00px);
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
 body {
     font-family: "Yusei Magic", sans-serif;
     background: #ffffff;
@@ -13,7 +63,33 @@ body {
     font-family: "Yusei Magic", sans-serif;
     font-weight: 400;
     font-style: normal;
+    font-size: 18px;                        
 }  
+/*画面の幅に応じてフォントサイズを変更する。*/
+/* 画面幅が600px未満の場合 */
+@media screen and (max-width: 550px) {
+    .message {
+        font-size: 14px; /* 例えば、小さな画面ではフォントサイズを14pxに調整 */
+    }
+}
+/* 画面幅が400px未満の場合 */
+@media screen and (max-width: 500px) {
+    .message {
+        font-size: 12px; /* 例えば、非常に小さな画面ではフォントサイズを12pxに調整 */
+    }
+}
+/* 画面幅が400px未満の場合 */
+@media screen and (max-width: 400px) {
+    .message {
+        font-size: 10px; /* 例えば、非常に小さな画面ではフォントサイズを12pxに調整 */
+    }
+}
+/* 画面幅が400px未満の場合 */
+@media screen and (max-width: 300px) {
+    .message {
+        font-size: 8px; /* 例えば、非常に小さな画面ではフォントサイズを12pxに調整 */
+    }
+}
 /* テキストアニメーション */
 .ml9 {
     position: relative;
