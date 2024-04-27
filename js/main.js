@@ -126,7 +126,7 @@ var web_cam ,message ,touch_img;
 //セットアップ
 window.setup =() =>{
 	frameRate(30);
-	canvas = createCanvas(windowWidth, windowHeight);
+	canvas = createCanvas(windowHeight, windowWidth);
 	canvas.style('z-index','-1');
 	web_cam = new Web_cam();
 	//aniv_text.pause();
