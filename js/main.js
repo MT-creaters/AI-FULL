@@ -264,7 +264,7 @@ class Web_cam{
 		document.getElementById('disp').innerHTML="(width,height)= : "+width+","+height+" (img.width,img.height)= "+ img.width+","+img.height;
 	}
 	yokonaga_value_change(){
-		let img = this.capture().get();
+		let img = this.capture.get();
 		this.size_scale = max(width / img.height, height / img.width);
 		this.scaled = [img.width * this.size_scale, img.height * this.size_scale];
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
