@@ -127,7 +127,6 @@ var web_cam ,message ,touch_img;
 window.setup =() =>{
 	frameRate(30);
 	canvas = createCanvas(windowWidth, windowHeight);
-	resizeCanvas(windowWidth, windowHeight)
 	canvas.style('z-index','-1');
 	web_cam = new Web_cam();
 	//aniv_text.pause();
@@ -264,7 +263,7 @@ class Web_cam{
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
-		image(img, 0,0, this.scaled[1], this.scaled[0]);
+		image(img, 0,0, this.scaled[1]/2, this.scaled[0]/2);
 		document.getElementById('yoko').innerHTML="よこ iamge= "+image;
 		pop();
 	}
