@@ -254,7 +254,7 @@ class Web_cam{
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
 		image(img, 0,0, this.scaled[0], this.scaled[1]);
-		document.getElementById('tate').innerHTML="たて iamge= "+image;
+		document.getElementById('tate').innerHTML="たて iamge= "+image+"   scaled[0], scaled[1] : "+this.scaled[0]+", "+this.scaled[1];
 		pop();
 	}
 	web_cam_draw_horizon(load ,img){
