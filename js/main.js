@@ -1,5 +1,6 @@
 //テキストアニメ;
-const isPortrait = window.matchMedia("(orientation: portrait)");
+let isPortrait = window.matchMedia("(orientation: portrait)");
+console.log("ok");
 function change_screen(){
 	if(isPortrait != window.matchMedia("(orientation: portrait)")){
 		isPortrait = window.matchMedia("(orientation: portrait)");
