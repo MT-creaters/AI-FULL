@@ -1,4 +1,12 @@
 //テキストアニメ;
+const isPortrait = window.matchMedia("(orientation: portrait)");
+function change_screen(){
+	if(isPortrait != window.matchMedia("(orientation: portrait)")){
+		isPortrait = window.matchMedia("(orientation: portrait)");
+		web_cam.value_change();
+		resizeCanvas(windowWidth, windowHeight);
+	}
+}
 
 //数字を序数に変換する関数
 function josuu(number) {
@@ -143,6 +151,7 @@ window.draw =()=> {
 		web_cam.web_cam_draw(load,img);
 		touch_img.touch_effect();
 		message.message_draw();
+		change_screen();
 	}
 }
 //マウスクリック処理(html)
