@@ -199,12 +199,12 @@ window.windowResized=()=> {
 		web_cam.value_change();
 		resizeCanvas(windowWidth, windowHeight);
 		console.log('yoko');
-		document.getElementById('direction').innerHTML='よこよこよこよこよこよこ';
+		document.getElementById('direction').innerHTML='よこよこよこよこ：'+windowWidth+", "+windowWidth;
 	}else{
 		web_cam.value_change();
 		resizeCanvas(windowWidth, windowHeight);
 		console.log('tate');
-		document.getElementById('direction').innerHTML='たてたてたてたてたてたて';
+		document.getElementById('direction').innerHTML='たてたてたてたて：'+windowWidth+", "+windowWidth;
 	}
 }
 
