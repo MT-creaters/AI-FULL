@@ -203,7 +203,7 @@ window.windowResized=()=> {
 	var direction = Math.abs(window.orientation);
 	if(direction==90 || direction==-90){
 		web_cam.value_change();
-		resizeCanvas(windowWidth, windowWidth);
+		resizeCanvas(windowWidth, windowHeight);
 		console.log('yoko');
 		document.getElementById('direction').innerHTML='よこよこよこよこ：'+windowWidth+", "+windowWidth;
 	}else{
@@ -242,6 +242,7 @@ class Web_cam{
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
 		image(img, 0,0, this.scaled[0], this.scaled[1]);
+		document.getElementById('tate').innerHTML="たて iamge= "+image;
 		pop();
 	}
 	web_cam_draw_horizon(load ,img){
@@ -250,7 +251,8 @@ class Web_cam{
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
-		image(img, 0,0, this.scaled[1], this.scaled[1]);
+		image(img, 0,0, this.scaled[0], this.scaled[1]);
+		document.getElementById('yoko').innerHTML="よこ iamge= "+image;
 		pop();
 	}
 	web_cam_capture(){
