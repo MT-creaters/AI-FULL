@@ -160,6 +160,7 @@ window.draw =()=> {
 			web_cam.tatenaga_value_change();
 			web_cam.web_cam_draw(load,img);
 			document.getElementById('draw').innerHTML='web';
+			document.getElementById('draw').innerHTML='たてながが実行されているはずです';
 		}
 		else{
 			web_cam.value_change();
