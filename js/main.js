@@ -138,10 +138,10 @@ window.setup =() =>{
 	// calculateLayout();
 }
 //毎フレーム処理
+var flag=0;
 window.draw =()=> {
 	let img = web_cam.web_cam_capture();
 	var direction = Math.abs(window.orientation);
-	var flag=0;
 	if (img.width-300) {
 		if(direction==90 || direction==-90){
 			if(img.width>img.height){
