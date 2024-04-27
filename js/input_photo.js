@@ -15,6 +15,7 @@ function saveImage(imageData, fileType){
         form.elements['name'].value = '';
         // 画像のファイルを選択するinput要素もクリアする
         document.getElementById('photo').value = '';
+        document.getElementById('file_check_text').innerText="";
     });
 }
 
