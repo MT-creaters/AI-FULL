@@ -266,7 +266,7 @@ class Web_cam{
 		// image(img, 0,0, this.scaled[1]/3, this.scaled[0]/3);
 		image(img, 0, 0, (this.scaled[1]*windowHeight)/this.scaled[0], windowHeight)
 
-		document.getElementById('yoko').innerHTML="よこ iamge= "+image;
+		document.getElementById('yoko').innerHTML="よこ iamge= "+image+"   scaled[1], scaled[0] : "+this.scaled[1]+", "+this.scaled[0];
 		pop();
 	}
 	web_cam_capture(){
