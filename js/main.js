@@ -229,8 +229,11 @@ class Web_cam{
 		let img = this.capture.get();
 		this.size_scale = max(width / img.width ,height / img.height);
 		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
+		// this.scaled = [width, height]
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
 		console.log('value_chage関数');
+		// document.getElementById('disp').innerHTML="size_scale : "+this.size_scale+" scaled : "+this.scaled+" offset : "+this.offset;
+		document.getElementById('disp').innerHTML="(width,height)= : "+width+","+height+" (img.width,img.height)= "+ img.width+","+img.height;
 	}
 	web_cam_draw(load ,img){
 		translate(width, 0);
@@ -243,7 +246,7 @@ class Web_cam{
 	}
 	web_cam_draw_horizon(load ,img){
 		translate(width, 0);
-		scale(-1, height/width);
+		scale(-1, 1);
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
