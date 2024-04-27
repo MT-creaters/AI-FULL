@@ -143,11 +143,30 @@ window.setup =() =>{
 	touch_img = new Touch_img();
 }
 //毎フレーム処理
+var flag=0;
 window.draw =()=> {
 	let img = web_cam.web_cam_capture();
-	if (img.width-300) {
-		web_cam.value_change();
-		web_cam.web_cam_draw(load,img);
+	var direction = Math.abs(window.orientation);
+	if(img.width-300){
+		if(direction==90 || direction==-90){
+			if(img.width>img.height){
+				web_cam.yokonaga_value_change();
+				web_cam.web_cam_draw_horizon_yokonaga(load, img);
+				flag = 1;
+			}
+			else{
+				web_cam.after_value_change();
+				web_cam.web_cam_draw_horizon(load, img);
+			}
+		}
+		else if(flag==1){
+			web_cam.tatenaga_value_change();
+			web_cam.web_cam_draw(load, img);
+		}
+		else{
+			web_cam.value_change();
+			web_cam.web_cam_draw(load,img);
+		}
 		touch_img.touch_effect();
 		message.message_draw();
 	}
@@ -217,11 +236,27 @@ window.mouseClicked=()=>{
 	//タッチエフェクト初期化
 	touch_img.xyr[0] = mouseX ,touch_img.xyr[1] = mouseY ,touch_img.xyr[2] = 0;
 }
+
 //ウィンドウサイズ変化時の処理
 window.windowResized=()=> {
-	web_cam.value_change();
-	resizeCanvas(windowWidth, windowHeight);
+	var direction = Math.abs(window.orientation);
+	let img = web_cam.web_cam_capture();
+	if(direction==90 || direction==-90){
+		if(img.width>img.height){
+			web_cam.yokonaga_value_change();
+			resizeCanvas(windowWidth, windowHeight);
+		}
+		else{
+			web_cam.after_value_change();
+			resizeCanvas(windowWidth, windowHeight);
+		}
+	}
+	else{
+		web_cam.value_change();
+		resizeCanvas(windowWidth, windowHeight);
+	}
 }
+
 //ウェブカメラ
 class Web_cam{
 	constructor(){
@@ -238,6 +273,24 @@ class Web_cam{
 		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
 	}
+	after_value_change(){
+		let img = this.capture.get();
+		this.size_scale = max(width / img.width ,height / img.height);
+		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
+		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
+	}
+	yokonaga_value_change(){
+		let img = this.capture.get();
+		this.size_scale = max(width / img.height ,height / img.width);
+		this.scaled = [img.height * this.size_scale ,img.width * this.size_scale];
+		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
+	}
+	tatenaga_value_change(){
+		let img = this.capture.get();
+		this.size_scale = max(width / img.height ,height / img.width);
+		this.scaled = [img.height * this.size_scale ,img.width * this.size_scale];
+		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
+	}
 	web_cam_draw(load ,img){
 		translate(width, 0);
 		scale(-1, 1);
@@ -245,6 +298,24 @@ class Web_cam{
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
 		image(img, 0,0, this.scaled[0], this.scaled[1]);
+		pop();
+	}
+	web_cam_draw_horizon(load ,img){
+		translate(width, 0);
+		scale(-1, 1);
+		if(this.alpha > 0) load.hidden = true;
+		if (this.alpha <255) this.alpha += 30;
+		tint(255 , this.alpha);
+		image(img, 0,0, windowWidth, (this.scaled[0]*windowWidth)/this.scaled[1]);
+		pop();
+	}
+	web_cam_draw_horizon_yokonaga(load ,img){
+		translate(width, 0);
+		scale(-1, 1);
+		if(this.alpha > 0) load.hidden = true;
+		if (this.alpha <255) this.alpha += 30;
+		tint(255 , this.alpha);
+		image(img, 0,0, windowWidth, (this.scaled[0]*windowWidth)/this.scaled[1]);
 		pop();
 	}
 	web_cam_capture(){
