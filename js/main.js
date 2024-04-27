@@ -54,39 +54,39 @@ db_cap.version(1).stores({
 
 // 録画を開始する関数
 function startRecording(canvas) {
-    let canvasStream = canvas.elt.captureStream();
-    let stream = new MediaStream();
-    canvasStream.getVideoTracks().forEach(track => stream.addTrack(track));
+	let canvasStream = canvas.elt.captureStream();
+	let stream = new MediaStream();
+	canvasStream.getVideoTracks().forEach(track => stream.addTrack(track));
 
-    mediaRecorder = new MediaRecorder(stream);
-    recordedChunks = [];
+	mediaRecorder = new MediaRecorder(stream);
+	recordedChunks = [];
 
-    mediaRecorder.ondataavailable = event => {
-        if (event.data.size > 0) {
-            recordedChunks.push(event.data);
-        }
-    };
+	mediaRecorder.ondataavailable = event => {
+		if (event.data.size > 0) {
+			recordedChunks.push(event.data);
+		}
+	};
 
-    mediaRecorder.onstop = () => {
-        let recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
-        let videoURL = URL.createObjectURL(recordedBlob);
-        // db_cap.videos.put({ video: recordedBlob }); // 録画されたビデオをデータベースに保存
-        db_cap.videos.put({ video: videoURL }); // 録画されたビデオをデータベースに保存
+	mediaRecorder.onstop = () => {
+		let recordedBlob = new Blob(recordedChunks, { type: 'video/mp4' });
+		let videoURL = URL.createObjectURL(recordedBlob);
+		// db_cap.videos.put({ video: recordedBlob }); // 録画されたビデオをデータベースに保存
+		db_cap.videos.put({ video: videoURL }); // 録画されたビデオをデータベースに保存
 		const a = document.createElement('a');
 		a.href = videoURL;
-		a.download = 'video.webm';
+		a.download = 'video.mp4';
 
 		a.style.display = 'none';
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
-    };
+	};
 
-    mediaRecorder.start();
+	mediaRecorder.start();
 
-    setTimeout(() => {
-        mediaRecorder.stop();
-    }, 8000); // 10秒後に録画を停止
+	setTimeout(() => {
+		mediaRecorder.stop();
+	}, 8000); // 10秒後に録画を停止
 }
 export let aniv_text;
 export function anime_init() {
