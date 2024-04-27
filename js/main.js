@@ -204,12 +204,12 @@ window.mouseClicked=()=>{
 window.windowResized=()=> {
 	var direction = Math.abs(window.orientation);
 	if(direction==90 || direction==-90){
-		web_cam.value_change();
+		web_cam.after_value_change();
 		createCanvas(windowWidth, windowHeight);
 		console.log('yoko');
 		document.getElementById('direction').innerHTML='よこよこよこよこ：'+windowWidth+", "+windowWidth;
 	}else{
-		web_cam.value_change();
+		web_cam.after_value_change();
 		createCanvas(windowWidth, windowHeight);
 		console.log('tate');
 		document.getElementById('direction').innerHTML='たてたてたてたて：'+windowWidth+", "+windowWidth;
@@ -230,6 +230,16 @@ class Web_cam{
 	value_change(){
 		let img = this.capture.get();
 		this.size_scale = max(width / img.width ,height / img.height);
+		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
+		// this.scaled = [width, height]
+		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
+		console.log('value_chage関数');
+		// document.getElementById('disp').innerHTML="size_scale : "+this.size_scale+" scaled : "+this.scaled+" offset : "+this.offset;
+		document.getElementById('disp').innerHTML="(width,height)= : "+width+","+height+" (img.width,img.height)= "+ img.width+","+img.height;
+	}
+	after_value_change(){
+		let img = this.capture.get();
+		this.size_scale = max(width / img.height ,height / img.width);
 		this.scaled = [img.width * this.size_scale ,img.height * this.size_scale];
 		// this.scaled = [width, height]
 		this.offset = [(width - this.scaled[0]) / 2,(height - this.scaled[1]) / 2];
