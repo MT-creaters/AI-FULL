@@ -200,7 +200,7 @@ window.mouseClicked=()=>{
 }
 //ウィンドウサイズ変化時の処理
 window.windowResized=()=> {
-	web_cam.value_change();
+	// web_cam.value_change();
 	resizeCanvas(windowWidth, windowHeight);
 }
 //ウェブカメラ
