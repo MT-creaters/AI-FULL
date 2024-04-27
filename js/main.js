@@ -250,7 +250,7 @@ class Web_cam{
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
-		image(img, 0,0, this.scaled[0], this.scaled[0]);
+		image(img, 0,0, this.scaled[1], this.scaled[1]);
 		pop();
 	}
 	web_cam_capture(){
