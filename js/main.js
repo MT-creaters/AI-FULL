@@ -258,13 +258,15 @@ class Web_cam{
 		pop();
 	}
 	web_cam_draw_horizon(load ,img){
-		translate(width-(width/2)+(img.width/2), 0);
+		// translate(width-(width/2)+(img.width/2), 0);
+		translate(width, 0)
 		scale(-1, 1);
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
 		// image(img, 0,0, this.scaled[1]/3, this.scaled[0]/3);
-		image(img, 0, 0, (this.scaled[1]*windowHeight)/this.scaled[0], windowHeight)
+		// image(img, 0, 0, (this.scaled[1]*windowHeight)/this.scaled[0], windowHeight)
+		image(img, 0, 0, windowWidth, (this.scaled[0]*windowWidth)/this.scaled[1])
 
 		document.getElementById('yoko').innerHTML="よこ iamge= "+image+"   scaled[1], scaled[0] : "+this.scaled[1]+", "+this.scaled[0];
 		pop();
