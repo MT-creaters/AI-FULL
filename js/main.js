@@ -126,7 +126,7 @@ var web_cam ,message ,touch_img;
 //セットアップ
 window.setup =() =>{
 	frameRate(30);
-	canvas = createCanvas(windowHeight, windowWidth);
+	canvas = createCanvas(windowWidth, windowHeight);
 	canvas.style('z-index','-1');
 	web_cam = new Web_cam();
 	//aniv_text.pause();
@@ -203,7 +203,7 @@ window.windowResized=()=> {
 	var direction = Math.abs(window.orientation);
 	if(direction==90 || direction==-90){
 		web_cam.value_change();
-		resizeCanvas(windowWidth, windowHeight);
+		resizeCanvas(windowWidth, windowWidth);
 		console.log('yoko');
 		document.getElementById('direction').innerHTML='よこよこよこよこ：'+windowWidth+", "+windowWidth;
 	}else{
@@ -246,7 +246,7 @@ class Web_cam{
 	}
 	web_cam_draw_horizon(load ,img){
 		translate(width, 0);
-		scale(-1, 3/4);
+		scale(-1, 1);
 		if(this.alpha > 0) load.hidden = true;
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
