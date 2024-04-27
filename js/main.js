@@ -4,7 +4,6 @@ function change_screen(){
 	if(isPortrait != window.matchMedia("(orientation: portrait)")){
 		isPortrait = window.matchMedia("(orientation: portrait)");
 		web_cam.value_change();
-		resizeCanvas(windowWidth, windowHeight);
 	}
 }
 
