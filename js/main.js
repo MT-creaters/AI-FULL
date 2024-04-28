@@ -119,12 +119,28 @@ db.version(1).stores({
     files: "name"
   });
 
+function dataURLToBlob(dataURL) {
+    var arr = dataURL.split(',');
+    var mime = arr[0].match(/:(.*?);/)[1];
+    var bstr = atob(arr[1]);
+    var n = bstr.length;
+    var u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+}
+
 window.ImgReceive = async ()=>{
 	let canv = document.getElementById("defaultCanvas0");
-	let link = canv.toDataURL();
-	// let res  = await fetch(link);
-	// let blob = await res.blob();
-	db.files.put({name:"image.png",data:link});
+	let link = canv.toDataURL('image/png');
+	var blob = dataURLToBlob(link);
+	db.files.put({name:"image.png",data:blob});
+	// let images = await db.files.get("image.png");
+	// const blobUrl = URL.createObjectURL(images.data);
+	// const img = document.createElement('img');
+	// img.src = blobUrl;
+	// document.body.appendChild(img);
 }
 
 var load ,aniv_hide;
