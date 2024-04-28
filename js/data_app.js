@@ -1,4 +1,5 @@
 import {db_data, db_im} from './app.js'
+import {db} from './main.js'
 
 //日付を入力することで、その差を判定する関数
 function compareDates(date1, date2) {
@@ -41,23 +42,6 @@ function processPhotos(photos) {
     return filteredData;
 }
 
-//モデルの準備
-const loadModelsPromise = Promise.all([
-    faceapi.loadSsdMobilenetv1Model("../models/"),
-    faceapi.loadFaceLandmarkModel("../models/"),
-    faceapi.loadFaceRecognitionModel("../models/")
-]);
-
-//ここまでおけ
-loadModelsPromise.then(() => {
-    console.log("All models loaded successfully");
-    detectAllFaces();
-});
-
-loadModelsPromise.catch((error) => {
-    console.error("Error loading models:", error);
-});
-
 //イベントと一致するデータのみを取り出す準備
 let buff = await db_data.notes;
 window.db_buff = buff
@@ -70,61 +54,102 @@ buff.toArray().then((noteArray) => {
     }
 })
 
-async function detectAllFaces() {
-    console.log("detectAllFaces");
-    
-    try {
-        // データベースから写真データを取得
-        const photos = await db_im.photos.toArray();
-        const filteredData = processPhotos(photos);
-        //名前とblobデータセット
-        console.log(filteredData);
-        
-        const photoDataArray = filteredData.map(item => item.photoData);
-        //blobデータのみ
-        console.log(photoDataArray);
-        //データは来てる？？はず
+Promise.all([
+    faceapi.nets.faceRecognitionNet.loadFromUri('../models'),
+    faceapi.nets.faceLandmark68Net.loadFromUri('../models'),
+    faceapi.nets.ssdMobilenetv1.loadFromUri('../models')
+  ]).then(loadlabelimages)
 
-        // 画像ごとに顔検出を行う
-        const faceDetectionPromises = photoDataArray.map(async (photoData) => {
-            try {
-                // BlobデータからBlob URLを作成
+async function loadlabelimages() {
+    // データベースから写真データを取得
+    const photos = await db_im.photos.toArray();
+    const filteredData = processPhotos(photos);
+    const labels = filteredData.map(item => item.name);
+    console.log(labels)
+    const photoDataArray = filteredData.map(item => item.photoData);
+    console.log(filteredData)
+    console.log(photoDataArray)
+    
+    return Promise.all(
+        labels.map(async label => {
+            const descriptions = []
+            for (let i = 0; i < photoDataArray.length; i++) {
+                const photoData = photoDataArray[i];
+                const label = labels[i]; // 対応するラベルを取得
                 const blobUrl = URL.createObjectURL(photoData);
                 const blobArray = new Uint8Array(photoData);
-                console.log(blobArray);
                 // 画像を読み込む
                 const img = new Image();
                 img.src = blobUrl;
 
-                console.log("a")
                 // 画像の読み込みが完了するのを待つ
                 await new Promise((resolve, reject) => {
                     img.onload = () => resolve();
                     img.onerror = reject;
                 });
-                console.log("a")
 
-                // 顔検出を実行
-                const faceData = await faceapi.detectAllFaces(img);
-                console.log("Detected faces:", faceData);
-                
-                // 検出された顔に対して何か処理を行う
-                
-                // Blob URLを解放する
-                URL.revokeObjectURL(blobUrl);
-                
-                return faceData;
-            } catch (error) {
-                console.error("Error detecting faces:", error.message);
-                throw error;
+                // const img = await faceapi.bufferToImage(photoData); // 写真データを画像に変換
+                const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor(); // 顔を検出して特徴量を取得
+                if (detections) {
+                    // 特徴量が検出された場合は処理を行う（例えば、console.logでラベルと特徴量を表示するなど）
+                    descriptions.push(detections.descriptor)
+                    console.log("a")
+
+                } else {
+                    // 顔が検出されなかった場合の処理（例えば、エラーメッセージを表示するなど）
+                    console.log(`ラベル: ${label}, 顔が検出されませんでした`);
+                }
             }
-        });
-        
-        // すべての画像の顔検出が完了するのを待つ
-        await Promise.all(faceDetectionPromises);
-    } catch (error) {
-        console.error('Error fetching photos:', error.message);
+        return new faceapi.LabeledFaceDescriptors(label, descriptions)
+        })
+      )
     }
+
+// main.jsから送信されたイベントをリッスンし、関数を呼び出す
+window.addEventListener('ImgReceive', receiveImgEvent);
+// main.jsからイベントを受け取るための関数を定義
+export async function receiveImgEvent() {
+    const img = await db.files.toArray()
+    const imgArray = img.map(item => item.data)
+    const input_blobUrl = URL.createObjectURL(imgArray[0]);
+    const blobArray = new Uint8Array(imgArray); 
+
+    // 画像を読み込む
+    const use_img = new Image();
+    use_img.src = input_blobUrl;
+
+    // 画像の読み込みが完了するのを待つ
+    await new Promise((resolve, reject) => {
+        use_img.onload = () => resolve();
+        use_img.onerror = reject;
+    });
+
+    // loadlabelimages関数の実行を待つ
+    const labeledFaceDescriptors = await loadlabelimages();
+
+    // FaceMatcherの作成と顔の検出、比較を行う
+    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.5);
+    const detections = await faceapi.detectAllFaces(use_img).withFaceLandmarks().withFaceDescriptors();
+    const results = detections.map(detection => faceMatcher.findBestMatch(detection.descriptor));
+    const bestMatches = detections.map(detection => {
+        const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
+        const name = bestMatch.toString().replace(/\s*\([^)]*\)/g, '').trim(); // 名前のみを取得して整形
+        return name;
+    });
+    
+    // 新しい配列に名前を追加する
+    const newArray = [];
+    bestMatches.forEach(name => {
+        newArray.push(name);
+    });
+    
+    const isMatching = window.name_list.length === newArray.length && window.name_list.every(name => newArray.includes(name));
+
+    if (isMatching) {
+        window.globalVariable = true;
+    } else {
+        window.globalVariable = false;
+    }
+    console.log(window.globalVariable)
+
 }
-
-

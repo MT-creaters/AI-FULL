@@ -131,6 +131,19 @@ function dataURLToBlob(dataURL) {
     return new Blob([u8arr], { type: mime });
 }
 
+function waitForGlobalVariable() {
+    return new Promise(resolve => {
+        const checkGlobalVariable = () => {
+            if (typeof window.globalVariable !== 'undefined') {
+                resolve();
+            } else {
+                setTimeout(checkGlobalVariable, 100); // 100ミリ秒後に再度チェック
+            }
+        };
+        checkGlobalVariable();
+    });
+}
+
 window.ImgReceive = async ()=>{
 	let canv = document.getElementById("defaultCanvas0");
 	let link = canv.toDataURL('image/png');
@@ -141,6 +154,7 @@ window.ImgReceive = async ()=>{
 	// const img = document.createElement('img');
 	// img.src = blobUrl;
 	// document.body.appendChild(img);
+	window.dispatchEvent(new Event('ImgReceive'));
 }
 
 var load ,aniv_hide;
@@ -206,49 +220,53 @@ window.OnClick=()=>{
 			window.name_list=data_one.name //ここで、イベントのデータベースを送信しています。
 			startRecording(canvas);
 			ImgReceive(); //画像データを受信
-			aniv_hide.hidden = false;
-			var gif_1 = document.getElementById('myGif');//表示させるGIFのIDをHTMLから引っ張る
-			var gif_2 = document.getElementById('myGif_2');//表示させるGIFを引っ張る
-			var gif_3 = document.getElementById('kirakira_left');//表示させるGIFを引っ張る
-			var gif_4 = document.getElementById('kirakira_right');//表示させるGIFを引っ張る
-			year=document.getElementById("aniv")//HTMLのanivというidを持つテキストを引っ張ってきます。
-			gif_1.style.display = 'none'; // GIFを非表示(連続してボタンを押したときの対応)
-			gif_2.style.display = 'none'; // GIFを非表示
-			gif_3.style.display = 'none'; // GIFを非表示
-			gif_4.style.display = 'none'; // GIFを非表示
-			//非常に不本意ですが、メッセージ作成の部分を関数化できなかったのでここに書きます。
-			if(data_one.event=='誕生日'){ 
-				//誕生日と設定した場合のメッセージを書きます。
-				year.innerHTML='Happy Birthday!!!' 
-				var undermessage='お誕生日おめでとう！！！！'
-				gif_1.src='./resource/happy-birthday.gif'
-				gif_2.src='./resource/happy-birthday.gif'
-			}
-			else if(data_one.event=='記念日'){
-				//記念日の場合のメッセージを書きます。
-				 year.innerHTML=josuu(compareDates(event_day,current_date))+'Aniversary' //計算結果を足す。
-				 var undermessage=number_message(compareDates(event_day,current_date))+'これからもよろしく'
-				 gif_1.src='./resource/おめでとう-嬉しい.gif'
-				 gif_2.src='./resource/おめでとう-嬉しい_反転.gif'
-			}
-			message = new Message(undermessage)//画面上に表示する下段のメッセージをインスタンス化します。
-   			gif_1.style.display = 'block'; // GIFを表示
-			gif_2.style.display = 'block'; // GIFを表示
-			gif_3.style.display = 'block'; // GIFを表示
-			gif_4.style.display = 'block'; // GIFを表示
-			anime_init(data_one.event);//HTML側の文字を設定しなおしたのでアニメーション初期化
-			aniv_text.restart();
-			aniv_hide.hidden = false;
-			//クラッカーエフェクト
-			confetti({particleCount: 5000,spread: 700000,origin: { y: 1.0 }});
-			//タッチエフェクト初期化
-			touch_img.xyr[0] = mouseX ,touch_img.xyr[1] = mouseY ,touch_img.xyr[2] = 0;
-			//文字エフェクト
-			message.message_reset();
+			console.log(window.globalVariable)
+			waitForGlobalVariable().then(() => {
+				if(window.globalVariable){
+					aniv_hide.hidden = false;
+					var gif_1 = document.getElementById('myGif');//表示させるGIFのIDをHTMLから引っ張る
+					var gif_2 = document.getElementById('myGif_2');//表示させるGIFを引っ張る
+					var gif_3 = document.getElementById('kirakira_left');//表示させるGIFを引っ張る
+					var gif_4 = document.getElementById('kirakira_right');//表示させるGIFを引っ張る
+					year=document.getElementById("aniv")//HTMLのanivというidを持つテキストを引っ張ってきます。
+					gif_1.style.display = 'none'; // GIFを非表示(連続してボタンを押したときの対応)
+					gif_2.style.display = 'none'; // GIFを非表示
+					gif_3.style.display = 'none'; // GIFを非表示
+					gif_4.style.display = 'none'; // GIFを非表示
+					//非常に不本意ですが、メッセージ作成の部分を関数化できなかったのでここに書きます。
+					if(data_one.event=='誕生日'){ 
+						//誕生日と設定した場合のメッセージを書きます。
+						year.innerHTML='Happy Birthday!!!' 
+						var undermessage='お誕生日おめでとう！！！！'
+						gif_1.src='./resource/happy-birthday.gif'
+						gif_2.src='./resource/happy-birthday.gif'
+					}
+					else if(data_one.event=='記念日'){
+						//記念日の場合のメッセージを書きます。
+						year.innerHTML=josuu(compareDates(event_day,current_date))+'Aniversary' //計算結果を足す。
+						var undermessage=number_message(compareDates(event_day,current_date))+'これからもよろしく'
+						gif_1.src='./resource/おめでとう-嬉しい.gif'
+						gif_2.src='./resource/おめでとう-嬉しい_反転.gif'
+					}
+					message = new Message(undermessage)//画面上に表示する下段のメッセージをインスタンス化します。
+					gif_1.style.display = 'block'; // GIFを表示
+					gif_2.style.display = 'block'; // GIFを表示
+					gif_3.style.display = 'block'; // GIFを表示
+					gif_4.style.display = 'block'; // GIFを表示
+					anime_init(data_one.event);//HTML側の文字を設定しなおしたのでアニメーション初期化
+					aniv_text.restart();
+					aniv_hide.hidden = false;
+					//クラッカーエフェクト
+					confetti({particleCount: 5000,spread: 700000,origin: { y: 1.0 }});
+					//タッチエフェクト初期化
+					touch_img.xyr[0] = mouseX ,touch_img.xyr[1] = mouseY ,touch_img.xyr[2] = 0;
+					//文字エフェクト
+					message.message_reset();
+					console.log("bbb")
+				}
+			});
 		}
 	});
-	//写真データ
-	//ImgReceive();
 }
 
 //マウスクリック処理(p5.js)
