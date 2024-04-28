@@ -152,24 +152,24 @@ window.draw =()=> {
 			if(img.width>img.height){
 				web_cam.yokonaga_value_change();
 				web_cam.web_cam_draw_horizon_yokonaga(load, img);
-				document.getElementById('debug').innerHTML="よこなが　よこなが　よこなが　よこなが　"
+				// document.getElementById('debug').innerHTML="よこなが　よこなが　よこなが　よこなが　"
 				flag = 1;
 			}
 			else{
 				web_cam.after_value_change();
 				web_cam.web_cam_draw_horizon(load, img);
-				document.getElementById('debug').innerHTML="よこ　よこ　よこ　よこ　よこ　よこ　よこ　"
+				// document.getElementById('debug').innerHTML="よこ　よこ　よこ　よこ　よこ　よこ　よこ　"
 			}
 		}
 		else if(flag==1){
 			web_cam.tatenaga_value_change();
 			web_cam.web_cam_draw(load, img);
-			document.getElementById('debug').innerHTML="たてなが　たてなが　たてなが　たてなが　たてなが　"
+			// document.getElementById('debug').innerHTML="たてなが　たてなが　たてなが　たてなが　たてなが　"
 		}
 		else{
 			web_cam.value_change();
 			web_cam.web_cam_draw(load,img);
-			document.getElementById('debug').innerHTML="たて　たて　たて　たて　たて　たて　たて　たて　"
+			// document.getElementById('debug').innerHTML="たて　たて　たて　たて　たて　たて　たて　たて　"
 		}
 		touch_img.touch_effect();
 		message.message_draw();
@@ -303,7 +303,6 @@ class Web_cam{
 		if (this.alpha <255) this.alpha += 30;
 		tint(255 , this.alpha);
 		image(img, 0,0, this.scaled[0], this.scaled[1]);
-		// image(img, 0, 0, (this.scaled[1]*windowHeight)/this.scaled[0], windowHeight);
 		pop();
 	}
 	web_cam_draw_horizon(load ,img){
